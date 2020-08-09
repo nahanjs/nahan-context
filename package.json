@@ -1,11 +1,20 @@
 {
   "name": "nahan-context",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Context initialization middleware.",
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter=html mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
-  "repository": "nahanjs/nahan-context"
+  "repository": "nahanjs/nahan-context",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.1.0",
+    "mocha": "^7.2.0",
+    "nahan-onion": "^0.1.1",
+    "nahan-path": "^0.3.1",
+    "nyc": "^15.1.0",
+    "supertest": "^4.0.2"
+  }
 }
