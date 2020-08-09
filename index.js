@@ -1,16 +1,25 @@
 'use strict';
 
-const init_path = require('./lib/path');
-const init_method = require('./lib/method');
+const Nahan = require('./lib/nahan');
 
-function Context() {
+function Context(options) {
 
-    async function context(ctx, next) {
+    options = options || {};
+    options.koa = options.koa || false;
 
-        init_path(ctx);
-        init_method(ctx);
+    function context(ctx, next) {
 
-        await next();
+        if (ctx.nh === undefined)
+            ctx.nh = new Nahan(ctx);
+
+        ctx._nh = ctx._nh || {};
+        const _nh = ctx._nh;
+
+        _nh.ctx_koa = options.koa;
+        if (!_nh.ctx_koa)
+            ctx._nh_new = ctx.nh;
+
+        return next();
     };
 
     return context;

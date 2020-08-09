@@ -20,12 +20,12 @@ function Test(done, Func) {
     }
 }
 
-function Callback(url, Func) {
+function Callback(url, Func, opts = []) {
     return (done) => {
         const app = Pipeline(
             async (ctx, next) => { await next(); ctx.res.end(); },
-            Context(),
-            Context(),
+            Context(opts[0]),
+            Context(opts[1]),
 
             Branch(Path('/path'), Test(done, Func)),
             Test(done, Func),
@@ -37,7 +37,20 @@ function Callback(url, Func) {
 
 describe('Context', () => {
 
-    describe('Path', () => {
+    describe('Options: koa', () => {
+
+        it('test (1)', Callback('/', ctx => {
+            expect(ctx.path).to.equal(undefined);
+            expect(ctx._nh.ctx_koa).to.equal(true);
+        }, [{ koa: true }, { koa: true }]));
+
+        it('test (2)', Callback('/', ctx => {
+            expect(ctx).to.equal(ctx.nh);
+            expect(ctx._nh.ctx_koa).to.equal(false);
+        }, [{ koa: true }, { koa: false }]));
+    });
+
+    describe('Attribute: path', () => {
 
         it('Default', Callback('/', ctx => {
             const path = ctx.path;
@@ -58,7 +71,7 @@ describe('Context', () => {
         }));
     });
 
-    describe('Method', () => {
+    describe('Attribute: method', () => {
 
         it('Get', Callback('/', ctx => {
             expect(ctx.method).to.eql(ctx.req.method).to.eql('GET');

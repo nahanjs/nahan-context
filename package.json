@@ -1,6 +1,6 @@
 {
   "name": "nahan-context",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Context initialization middleware.",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,8 @@
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
     "mocha": "^7.2.0",
-    "nahan-onion": "^0.1.1",
-    "nahan-path": "^0.3.1",
+    "nahan-onion": "^0.1.3",
+    "nahan-path": "^0.3.2",
     "nyc": "^15.1.0",
     "supertest": "^4.0.2"
   }
